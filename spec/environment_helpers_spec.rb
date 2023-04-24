@@ -11,7 +11,7 @@ RSpec.describe EnvironmentHelpers do
         before { expect(ENV["FOO"]).to be_nil }
 
         it "raises a KeyError" do
-          expect { string }.to raise_error(KeyError)
+          expect { string }.to raise_error(EnvironmentHelpers::MissingVariableError, /not supplied/)
         end
       end
 
