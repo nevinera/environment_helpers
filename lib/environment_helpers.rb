@@ -1,12 +1,13 @@
+require_relative "./environment_helpers/access_helpers"
+require_relative "./environment_helpers/string_helpers"
+
 module EnvironmentHelpers
   Error = Class.new(::StandardError)
   MissingVariableError = Class.new(Error)
+  BadDefault = Class.new(Error)
 
-  def string(name, default: nil, required: false)
-    required ? fetch(name) : fetch(name, default)
-  rescue KeyError
-    fail(MissingVariableError, "The environment variable '#{name}' was required but not supplied")
-  end
+  include AccessHelpers
+  include StringHelpers
 end
 
 ENV.extend(EnvironmentHelpers)
