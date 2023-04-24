@@ -7,5 +7,11 @@ module EnvironmentHelpers
     rescue KeyError
       fail(MissingVariableError, "The environment variable '#{name}' was required but not supplied")
     end
+
+    def check_default_type(context, value, *types)
+      return if value.nil?
+      types.each { |t| return if value.is_a?(t) }
+      fail(BadDefault, "Inappropriate default value for ENV.#{context}")
+    end
   end
 end
