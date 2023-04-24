@@ -13,5 +13,10 @@ module EnvironmentHelpers
       return if types.any? { |t| value.is_a?(t) }
       fail(BadDefault, "Inappropriate default value for ENV.#{context}")
     end
+
+    def check_default_value(context, value, allow:)
+      return if allow.include?(value)
+      fail(BadDefault, "Inappropriate default value for ENV.#{context}")
+    end
   end
 end
