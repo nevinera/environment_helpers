@@ -1,4 +1,4 @@
-RSpec.describe EnvironmentHelpers do
+RSpec.describe EnvironmentHelpers::StringHelpers do
   subject(:env) { ENV }
 
   describe "#string" do
