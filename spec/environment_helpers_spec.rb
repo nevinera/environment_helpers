@@ -4,6 +4,23 @@ RSpec.describe EnvironmentHelpers do
   describe "#string" do
     let(:name) { "FOO" }
 
+    context "with required: true" do
+      subject(:string) { ENV.string(name, required: true) }
+
+      context "when the environment value is not set" do
+        before { expect(ENV["FOO"]).to be_nil }
+
+        it "raises a KeyError" do
+          expect { string }.to raise_error(KeyError)
+        end
+      end
+
+      context "when the environment value is set" do
+        with_env("FOO" => "bar")
+        it { is_expected.to eq("bar") }
+      end
+    end
+
     context "without a default specified" do
       subject(:string) { ENV.string(name) }
 
