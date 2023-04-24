@@ -1,0 +1,12 @@
+name: StandardRB
+
+on: [push]
+
+jobs:
+  StandardRB:
+    runs-on: ubuntu-latest
+    steps:
+      - name: standardrb
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: amoeba/standardrb-action@v2
