@@ -10,7 +10,7 @@ module EnvironmentHelpers
 
     def check_default_type(context, value, *types)
       return if value.nil?
-      types.each { |t| return if value.is_a?(t) }
+      return if types.any? { |t| value.is_a?(t) }
       fail(BadDefault, "Inappropriate default value for ENV.#{context}")
     end
   end
