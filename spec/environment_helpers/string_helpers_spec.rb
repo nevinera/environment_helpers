@@ -10,7 +10,7 @@ RSpec.describe EnvironmentHelpers::StringHelpers do
       context "when the environment value is not set" do
         before { expect(ENV["FOO"]).to be_nil }
 
-        it "raises a KeyError" do
+        it "raises a MissingVariableError" do
           expect { string }.to raise_error(EnvironmentHelpers::MissingVariableError, /not supplied/)
         end
       end
@@ -64,7 +64,7 @@ RSpec.describe EnvironmentHelpers::StringHelpers do
       context "when the env value is not set" do
         before { expect(ENV["FOO"]).to be_nil }
 
-        it "raises a KeyError" do
+        it "raises a MissingVariableError" do
           expect { symbol }.to raise_error(EnvironmentHelpers::MissingVariableError, /not supplied/)
         end
       end
