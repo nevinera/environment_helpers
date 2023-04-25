@@ -35,6 +35,7 @@ ENV.string("APP_NAME", default: "local")
 ENV.symbol("BUSINESS_DOMAIN", default: :engineering, required: true)
 ENV.boolean("ENABLE_FEATURE_FOO", default: false)
 ENV.integer("MAX_THREAD_COUNT", default: 5)
+ENV.file_handle("FILE_PATH", default: "DEFAULT_PATH", required: true)
 ```
 
 Each of the supplied methods takes a positional parameter for the name of the environment variable,
@@ -44,6 +45,7 @@ isn't present in the environment. If `required` is set to a truthy value, then i
 present in the environment, an `EnvironmentHelpers::MissingVariableError` is raised.
 
 The available methods added to `ENV`:
+
 * `string` - environment values are already strings, so this is the simplest of the methods.
 * `symbol` - produces a symbol, and enforces that the default value is either `nil` or a Symbol.
 * `boolean` - produces `nil`, `true`, or `false` (and only allows those as defaults). Supports..
@@ -53,3 +55,4 @@ The available methods added to `ENV`:
 * `integer` - produces an integer from the environment variable, by calling `to_i` on it (if it's
   present). Note that this means that providing a value like "hello" means you'll get `0`, since
   that's what ruby does when you call `"hello".to_i`.
+* `file_handle` - produces a `Pathname` object if the path name given by the environment variable matches an existing path.

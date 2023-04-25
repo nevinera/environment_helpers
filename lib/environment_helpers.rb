@@ -2,6 +2,7 @@ require_relative "./environment_helpers/access_helpers"
 require_relative "./environment_helpers/string_helpers"
 require_relative "./environment_helpers/boolean_helpers"
 require_relative "./environment_helpers/numeric_helpers"
+require_relative "./environment_helpers/file_helpers"
 
 module EnvironmentHelpers
   Error = Class.new(::StandardError)
@@ -16,6 +17,7 @@ module EnvironmentHelpers
   include StringHelpers
   include BooleanHelpers
   include NumericHelpers
+  include FileHelpers
 end
 
 ENV.extend(EnvironmentHelpers)
