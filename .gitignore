@@ -2,3 +2,4 @@
 .ruby-gemset
 Gemfile.lock
 *.gem
+coverage/
