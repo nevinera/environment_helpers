@@ -34,6 +34,7 @@ methods onto `ENV` for your use.
 ENV.string("APP_NAME", default: "local")
 ENV.symbol("BUSINESS_DOMAIN", default: :engineering, required: true)
 ENV.boolean("ENABLE_FEATURE_FOO", default: false)
+ENV.integer_range("ID_RANGE", default: (500..))
 ENV.integer("MAX_THREAD_COUNT", default: 5)
 ENV.date("SCHEDULED_DATE", required: true, format: "%Y-%m-%d")
 ```
@@ -51,6 +52,9 @@ The available methods added to `ENV`:
   a fair variety of strings to map onto those boolean value, though you should probably just use
   "true" and "false" really. If you specify `required: true` and get a value like "maybe?", it'll
   raise an `EnvironmentHelpers::InvalidBooleanText` exception.
+* `integer_range` - produces an integer Range object. It accepts `N-N`, `N..N`, or `N...N`, (the
+  latter means 'excluding the upper bound, as in ruby). It supports `N..` and `..N`, in rubies that
+  allow such Ranges.
 * `integer` - produces an integer from the environment variable, by calling `to_i` on it (if it's
   present). Note that this means that providing a value like "hello" means you'll get `0`, since
   that's what ruby does when you call `"hello".to_i`.
