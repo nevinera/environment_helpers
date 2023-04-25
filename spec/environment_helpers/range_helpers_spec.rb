@@ -108,6 +108,11 @@ RSpec.describe EnvironmentHelpers::RangeHelpers do
         it { is_expected.to eq((3...5)) }
         it { is_expected.not_to be_cover(5) }
       end
+
+      context "with missing bound" do
+        with_env("FOO" => "3..")
+        it { is_expected.to be_nil }
+      end
     end
   end
 end
