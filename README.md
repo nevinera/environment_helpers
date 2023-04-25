@@ -30,7 +30,7 @@ methods onto `ENV` for your use.
 
 ## Usage
 
-```
+```shell
 ENV.string("APP_NAME", default: "local")
 ENV.symbol("BUSINESS_DOMAIN", default: :engineering, required: true)
 ENV.boolean("ENABLE_FEATURE_FOO", default: false)
@@ -59,7 +59,7 @@ The available methods added to `ENV`:
 * `integer` - produces an integer from the environment variable, by calling `to_i` on it (if it's
   present). Note that this means that providing a value like "hello" means you'll get `0`, since
   that's what ruby does when you call `"hello".to_i`.
-* `file_path` - produces a `Pathname` object if the path name given by the environment variable matches an existing path.
+* `file_path` - produces a `Pathname` initialized with the path specified by the environment variable.
 * `date` - produces a `Date` object, using `Date.strptime`. The default format string is `%Y-%m-%d`,
   which would parse a date like `2023-12-25`. It will handle invalid values (or format strings) like
   the variable not being present, though if it's specified as `required`, you will see a different
