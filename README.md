@@ -35,7 +35,7 @@ ENV.string("APP_NAME", default: "local")
 ENV.symbol("BUSINESS_DOMAIN", default: :engineering, required: true)
 ENV.boolean("ENABLE_FEATURE_FOO", default: false)
 ENV.integer("MAX_THREAD_COUNT", default: 5)
-ENV.file_handle("FILE_PATH", default: "DEFAULT_PATH", required: true)
+ENV.file_handle("FILE_PATH", default: "/some/path", required: true)
 ENV.date("SCHEDULED_DATE", required: true, format: "%Y-%m-%d")
 ```
 

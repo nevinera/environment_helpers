@@ -18,10 +18,10 @@ RSpec.describe EnvironmentHelpers::FileHelpers do
       context "when the environment value is set" do
         context "but it does not point to an existing file" do
           with_env("FOO" => "bar")
-          it { is_expected.to be_nil }
+          it { is_expected.to eq Pathname.new("bar") }
         end
 
-        context "but it does not point to an existing file" do
+        context "and it points to an existing file" do
           with_env("FOO" => __FILE__)
           it { is_expected.to eq Pathname.new(__FILE__) }
         end
@@ -39,7 +39,7 @@ RSpec.describe EnvironmentHelpers::FileHelpers do
       context "when the environment value is set" do
         context "to a pathname that does not exist" do
           with_env("FOO" => "bar")
-          it { is_expected.to be_nil }
+          it { is_expected.to eq Pathname.new("bar") }
         end
 
         context "to a pathname that does exist" do
@@ -53,13 +53,13 @@ RSpec.describe EnvironmentHelpers::FileHelpers do
       subject(:file_path) { ENV.file_path(name, default: "foo") }
 
       context "when the environment value is not set" do
-        it { is_expected.to be_nil }
+        it { is_expected.to eq Pathname.new("foo") }
       end
 
       context "when the environment value is set" do
         context "to a pathname that does not exist" do
           with_env("FOO" => "bar")
-          it { is_expected.to be_nil }
+          it { is_expected.to eq Pathname.new("bar") }
         end
 
         context "to a pathname that does exist" do
