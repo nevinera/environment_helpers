@@ -7,7 +7,7 @@ module EnvironmentHelpers
     BOOLEAN_VALUES = [true, false, nil].to_set
 
     def boolean(name, default: nil, required: false)
-      check_default_value(:boolean, default, allow: [nil, true, false])
+      check_default_value(:boolean, default, allow: BOOLEAN_VALUES)
       text = fetch_value(name, required: required)
 
       return default if text.nil?
