@@ -3,7 +3,7 @@ name: RSpec
 on: [push]
 
 jobs:
-  StandardRB:
+  RSpec:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
