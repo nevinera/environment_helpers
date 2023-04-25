@@ -15,8 +15,8 @@ module EnvironmentHelpers
     private
 
     def check_range_endpoint(context, value)
-      return if value.nil? || value.is_a?(Integer)
-      fail(BadDefault, "Invalid endpoint for default range of #{context} - must be Integer or nil")
+      return if value.is_a?(Integer)
+      fail(BadDefault, "Invalid endpoint for default range of #{context} - must be Integer")
     end
 
     def parse_range_bound_from(text)
@@ -31,7 +31,7 @@ module EnvironmentHelpers
       separator = $2
       upper_bound = parse_range_bound_from($3)
 
-      return nil if lower_bound.nil? && upper_bound.nil?
+      return nil if lower_bound.nil? || upper_bound.nil?
       if separator == "..."
         (lower_bound...upper_bound)
       else

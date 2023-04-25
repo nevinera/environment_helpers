@@ -108,28 +108,6 @@ RSpec.describe EnvironmentHelpers::RangeHelpers do
         it { is_expected.to eq((3...5)) }
         it { is_expected.not_to be_cover(5) }
       end
-
-      # ruby 2.6 doesn't support ranges with no lower bound
-      if RUBY_VERSION >= "2.7"
-        context "with the first value missing" do
-          with_env("FOO" => "..8")
-          it { is_expected.to eq((nil..8)) }
-          it { is_expected.to be_cover(-3) }
-          it { is_expected.not_to be_cover(9) }
-        end
-      end
-
-      context "with the second value missing" do
-        with_env("FOO" => "8..")
-        it { is_expected.to eq((8..nil)) }
-        it { is_expected.to be_cover(8) }
-        it { is_expected.not_to be_cover(7) }
-      end
-
-      context "with _both_ values missing" do
-        with_env("FOO" => "...")
-        it { is_expected.to be_nil }
-      end
     end
   end
 end
