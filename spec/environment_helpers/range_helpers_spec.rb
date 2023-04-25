@@ -12,6 +12,17 @@ RSpec.describe EnvironmentHelpers::RangeHelpers do
       context "and the key is supplied" do
         with_env("FOO" => "52-63")
         it { is_expected.to eq((52..63)) }
+
+        context "but has invalid content" do
+          with_env("FOO" => "hello")
+
+          it "raises a MissingVariableError" do
+            expect { integer_range }.to raise_error(
+              EnvironmentHelpers::InvalidRangeText,
+              /inappropriate content/
+            )
+          end
+        end
       end
 
       context "and the environment variable is not supplied" do
@@ -50,6 +61,17 @@ RSpec.describe EnvironmentHelpers::RangeHelpers do
           expect { integer_range }.to raise_error(
             EnvironmentHelpers::BadDefault,
             /inappropriate default/i
+          )
+        end
+      end
+
+      context "with the wrong type of endpoint" do
+        let(:options) { {default: ("a".."c")} }
+
+        it "raises a BadDefault error" do
+          expect { integer_range }.to raise_error(
+            EnvironmentHelpers::BadDefault,
+            /invalid endpoint for default range/i
           )
         end
       end

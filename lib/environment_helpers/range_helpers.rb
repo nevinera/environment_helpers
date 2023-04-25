@@ -1,26 +1,22 @@
 module EnvironmentHelpers
   module RangeHelpers
     def integer_range(name, default: nil, required: false)
-      check_default_type(:integer, default, Range)
-      check_range_endpoint(default.begin) if default
-      check_range_endpoint(default.end) if default
+      check_default_type(:integer_range, default, Range)
+      check_range_endpoint(:integer_range, default.begin) if default
+      check_range_endpoint(:integer_range, default.end) if default
 
       text = fetch_value(name, required: required)
       range = parse_range_from(text)
       return range if range
       return default unless required
-      fail(InvalidRangeText, "Required Integer Range environment variable #{name} had inappropriate contenxt '#{text}'")
+      fail(InvalidRangeText, "Required Integer Range environment variable #{name} had inappropriate content '#{text}'")
     end
 
     private
 
-    def check_range_endpoint(value)
+    def check_range_endpoint(context, value)
       return if value.nil? || value.is_a?(Integer)
       fail(BadDefault, "Invalid endpoint for default range of #{context} - must be Integer or nil")
-    end
-
-    def convert_range_endpoint(value)
-      return nil if value.empty
     end
 
     def parse_range_bound_from(text)
