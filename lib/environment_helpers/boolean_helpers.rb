@@ -10,7 +10,6 @@ module EnvironmentHelpers
       check_default_value(:boolean, default, allow: [nil, true, false])
       text = fetch_value(name, required: required)
 
-      return default if text.nil?
       return true if truthy_text?(text)
       return false if falsey_text?(text)
 
