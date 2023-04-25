@@ -17,7 +17,7 @@ module EnvironmentHelpers
     def parse_date_from(text, format:)
       return nil if text.nil?
       Date.strptime(text, format)
-    rescue Date::Error
+    rescue ArgumentError
       nil
     end
   end
