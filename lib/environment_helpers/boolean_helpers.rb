@@ -1,5 +1,3 @@
-require "set"
-
 module EnvironmentHelpers
   module BooleanHelpers
     TRUTHY_STRINGS = %w[true yes on enabled enable allow t y 1 ok okay].to_set
