@@ -3,6 +3,7 @@ require_relative "./environment_helpers/string_helpers"
 require_relative "./environment_helpers/boolean_helpers"
 require_relative "./environment_helpers/range_helpers"
 require_relative "./environment_helpers/numeric_helpers"
+require_relative "./environment_helpers/file_helpers"
 require_relative "./environment_helpers/datetime_helpers"
 
 module EnvironmentHelpers
@@ -21,6 +22,7 @@ module EnvironmentHelpers
   include BooleanHelpers
   include RangeHelpers
   include NumericHelpers
+  include FileHelpers
   include DatetimeHelpers
 end
 
