@@ -28,9 +28,9 @@ Gem::Specification.new do |spec|
   spec.executables = []
   spec.require_paths = ["lib"]
 
-  spec.add_development_dependency "rspec", ">= 3.10"
-  spec.add_development_dependency "simplecov"
-  spec.add_development_dependency "pry"
-  spec.add_development_dependency "standard"
-  spec.add_development_dependency "rubocop"
+  spec.add_development_dependency "rspec", "~> 3.10"
+  spec.add_development_dependency "simplecov", "~> 0.22.0"
+  spec.add_development_dependency "pry", "~> 0.14"
+  spec.add_development_dependency "standard", "~> 1.28"
+  spec.add_development_dependency "rubocop", "~> 1.50"
 end
