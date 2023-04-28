@@ -1,3 +1,5 @@
+require "set"
+
 require_relative "./environment_helpers/access_helpers"
 require_relative "./environment_helpers/string_helpers"
 require_relative "./environment_helpers/boolean_helpers"
