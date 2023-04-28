@@ -1,3 +1,7 @@
+# 'set' doesn't need requiring after ruby 3.2, but it won't hurt anything.
+# And we're compatible back to 2.6
+require "set" # rubocop:disable Lint/RedundantRequireStatement
+
 require_relative "./environment_helpers/access_helpers"
 require_relative "./environment_helpers/string_helpers"
 require_relative "./environment_helpers/boolean_helpers"
