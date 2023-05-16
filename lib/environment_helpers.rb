@@ -14,12 +14,14 @@ module EnvironmentHelpers
   Error = Class.new(::StandardError)
   MissingVariableError = Class.new(Error)
   BadDefault = Class.new(Error)
+  BadFormat = Class.new(Error)
 
   InvalidValue = Class.new(Error)
   InvalidBooleanText = Class.new(InvalidValue)
   InvalidRangeText = Class.new(InvalidValue)
   InvalidIntegerText = Class.new(InvalidValue)
   InvalidDateText = Class.new(InvalidValue)
+  InvalidDateTimeText = Class.new(InvalidValue)
 
   include AccessHelpers
   include StringHelpers
