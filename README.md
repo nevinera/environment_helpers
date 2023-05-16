@@ -38,6 +38,7 @@ ENV.integer_range("ID_RANGE", default: (500..6000))
 ENV.integer("MAX_THREAD_COUNT", default: 5)
 ENV.file_path("FILE_PATH", default: "/some/path", required: true)
 ENV.date("SCHEDULED_DATE", required: true, format: "%Y-%m-%d")
+ENV.date_time("RUN_AT", required: true, default: DateTime.now)
 ```
 
 Each of the supplied methods takes a positional parameter for the name of the environment variable,
@@ -64,3 +65,8 @@ The available methods added to `ENV`:
   which would parse a date like `2023-12-25`. It will handle invalid values (or format strings) like
   the variable not being present, though if it's specified as `required`, you will see a different
   exception in each case.
+* `date_time` - produces a `DateTime` object, using either `DateTime.strptime` or `DateTime.iso8601`.
+  The default format is `:iso8601`, and `:unix` is also an allowed 'format'. But if it is supplied
+  as a _string_, it will be handled as a strptime format string (the `:unix` format is equivalent to
+  the format string `"%s"`). It handles invalid or unparseable values like `ENV.date` does, in that
+  they are treated as if not supplied.
