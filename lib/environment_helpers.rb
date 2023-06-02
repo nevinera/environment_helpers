@@ -9,6 +9,7 @@ require_relative "./environment_helpers/range_helpers"
 require_relative "./environment_helpers/numeric_helpers"
 require_relative "./environment_helpers/file_helpers"
 require_relative "./environment_helpers/datetime_helpers"
+require_relative "./environment_helpers/enumerable_helpers"
 
 module EnvironmentHelpers
   Error = Class.new(::StandardError)
@@ -16,6 +17,7 @@ module EnvironmentHelpers
   BadDefault = Class.new(Error)
   BadFormat = Class.new(Error)
 
+  InvalidType = Class.new(Error)
   InvalidValue = Class.new(Error)
   InvalidBooleanText = Class.new(InvalidValue)
   InvalidRangeText = Class.new(InvalidValue)
@@ -30,6 +32,7 @@ module EnvironmentHelpers
   include NumericHelpers
   include FileHelpers
   include DatetimeHelpers
+  include EnumerableHelpers
 end
 
 ENV.extend(EnvironmentHelpers)
