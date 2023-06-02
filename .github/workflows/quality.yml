@@ -1,0 +1,28 @@
+name: Quiet Quality
+
+on: push
+permissions: write-all
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Show the merge-base
+        run: git merge-base origin/main ${{ github.sha }}
+        if: github.branch != 'main'
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.2
+          rubygems: latest
+          bundler: none
+
+      - name: Run QuietQuality
+        run: |
+          gem install quiet_quality
+          qq rubocop standardrb
