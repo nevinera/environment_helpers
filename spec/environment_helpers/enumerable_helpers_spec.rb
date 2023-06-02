@@ -1,4 +1,4 @@
-RSpec.describe EnvironmentHelpers::BooleanHelpers do
+RSpec.describe EnvironmentHelpers::EnumerableHelpers do
   subject(:env) { ENV }
 
   describe "#array" do
@@ -36,11 +36,6 @@ RSpec.describe EnvironmentHelpers::BooleanHelpers do
             expect { subject }.to raise_error(EnvironmentHelpers::InvalidType, /Valid types: .+\. Got: booleans\./)
           end
         end
-
-        context "when it is set to `file_paths'" do
-          let(:type) { :file_paths }
-          it { should eq [Pathname.new("a"), Pathname.new("bc"), Pathname.new("d")] }
-        end
       end
 
       context "when not passed an `of' param" do
@@ -53,13 +48,13 @@ RSpec.describe EnvironmentHelpers::BooleanHelpers do
         it { should eq %w[a b,c d] }
       end
 
-      context "when not passed a `delimeter' param" do
+      context "when not passed a `delimiter' param" do
         with_env "FOO" => "a;b,c;d"
         it { should eq %w[a;b c;d] }
       end
 
       context "when passed a default value" do
-        let(:params) { {default: [42]} }
+        let(:params) { {default: ["foo"]} }
 
         context "but there is a value present at the key" do
           with_env("FOO" => "a,b,c")
@@ -68,7 +63,7 @@ RSpec.describe EnvironmentHelpers::BooleanHelpers do
 
         context "and there is not a value present at the key" do
           let(:env_var) { "FOOBAR" }
-          it { should eq [42] }
+          it { should eq ["foo"] }
         end
 
         context "but it is of the wrong type" do
@@ -76,6 +71,14 @@ RSpec.describe EnvironmentHelpers::BooleanHelpers do
 
           it "raises an error" do
             expect { subject }.to raise_error(EnvironmentHelpers::BadDefault)
+          end
+        end
+
+        context "but it contains values of the incorrect type" do
+          let(:params) { {default: ["a", 42, :foo, "b"]} }
+
+          it "raises an error" do
+            expect { subject }.to raise_error(EnvironmentHelpers::BadDefault, /contains values not of type `strings': 42, foo/)
           end
         end
       end
