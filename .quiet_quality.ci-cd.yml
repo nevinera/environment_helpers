@@ -1,0 +1,8 @@
+---
+executor: concurrent
+comparison_branch: origin/main
+changed_files: true
+annotator: github_stdout
+filter_messages: true
+rspec:
+  filter_messages: false
