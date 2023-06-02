@@ -3,3 +3,5 @@ default_tools: ["standardrb", "rubocop", "rspec"]
 executor: concurrent
 comparison_branch: origin/main
 annotator: github_stdout
+changed_files: false
+filter_messages: false
