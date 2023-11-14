@@ -6,7 +6,7 @@ module EnvironmentHelpers
       check_range_endpoint(:integer_range, default.end) if default
 
       text = fetch_value(name, required: required)
-      range = parse_range_from(text)
+      range = text ? parse_range_from(text) : nil
       return range if range
       return default unless required
       fail(InvalidRangeText, "Required Integer Range environment variable #{name} had inappropriate content '#{text}'")
