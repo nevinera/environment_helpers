@@ -79,7 +79,7 @@ RSpec.describe EnvironmentHelpers::StringHelpers do
       end
 
       context "when the env value is not set" do
-        before { expect(ENV["FOO"]).to be_nil }
+        without_env "FOO"
         it { is_expected.to be_nil }
       end
     end
