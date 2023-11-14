@@ -6,7 +6,7 @@ module EnvironmentHelpers
 
     def symbol(name, default: nil, required: false)
       check_default_type(:symbol, default, Symbol)
-      string(name, default: default, required: required)&.to_sym
+      string(name, default: default&.to_s, required: required)&.to_sym
     end
   end
 end
