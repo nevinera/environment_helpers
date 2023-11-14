@@ -1,0 +1,96 @@
+module EnvironmentHelpers
+  VERSION: String
+
+  class Error < StandardError
+  end
+
+  class MissingVariableError < Error
+  end
+
+  class BadDefault < Error
+  end
+
+  class BadFormat < Error
+  end
+
+  class InvalidType < Error
+  end
+
+  class InvalidValue < Error
+  end
+
+  class InvalidBooleanText < InvalidValue
+  end
+
+  class InvalidRangeText < InvalidValue
+  end
+
+  class InvalidIntegerText < InvalidValue
+  end
+
+  class InvalidDateText < InvalidValue
+  end
+
+  class InvalidDateTimeText < InvalidValue
+  end
+
+  module AccessHelpers
+    # (Actually provided by ENV, which these are all extended onto)
+    def fetch: (String name) -> String?
+             | (String name, String? default) -> String?
+
+    private def fetch_value: (String name, required: bool) -> String?
+    private def check_default_type: (String | Symbol context, untyped value, *Class types) -> void
+    private def check_default_value: (String | Symbol context, untyped value, allow: Enumerable[untyped]) -> void
+  end
+
+  module FileHelpers : AccessHelpers
+    def file_path: (String name, default: String?, required: bool) -> Pathname?
+  end
+
+  module DatetimeHelpers : AccessHelpers
+    type date_time_result = DateTime? | Time?
+    def date: (String name, format: String, default: Date?, required: bool) -> Date?
+    def date_time: (String name, format: String | Symbol, default: date_time_result, required: bool) -> date_time_result
+    private def parse_date_from: (String? text, format: String) -> Date?
+    private def parse_date_time_from: (String? text, format: String | Symbol) -> DateTime?
+    private def iso8601_date_time: (String) -> DateTime?
+    private def unix_date_time: (String) -> DateTime?
+    private def strptime_date_time: (String, format: String) -> DateTime?
+  end
+
+  module NumericHelpers  : AccessHelpers
+    def integer: (String name, default: Integer?, required: bool) -> Integer?
+  end
+
+  module RangeHelpers : AccessHelpers
+    def integer_range: (String name, default: Range[Integer]?, required: bool) -> Range[Integer]?
+    private def check_range_endpoint: (String | Symbol context, untyped value) -> void
+    private def parse_range_bound_from: (String?) -> Integer?
+    private def parse_range_from: (String) -> Range[Integer]?
+  end
+
+  module BooleanHelpers : AccessHelpers
+    TRUTHY_STRINGS: Set[String]
+    FALSEY_STRINGS: Set[String]
+    BOOLEAN_VALUES: Set[bool]
+    def boolean: (String name, default: bool?, required: bool) -> boolish
+    private def truthy_text?: (String?) -> boolish
+    private def falsey_text?: (String?) -> boolish
+  end
+
+  module EnumerableHelpers : AccessHelpers
+    VALID_TYPES: Array[Symbol]
+    TYPE_HANDLERS: Hash[Symbol, Symbol]
+    TYPE_MAP: Hash[Symbol, Class]
+    type arrayable = Integer | String | Symbol
+    def array: (String key, of: Symbol, delimiter: String, default: Array[arrayable]?, required: bool) -> Array[arrayable]?
+    private def check_valid_data_type!: (Symbol) -> void
+    private def check_default_data_types!: (Array[arrayable]?, Symbol) -> void
+  end
+
+  module StringHelpers : AccessHelpers
+    def string: (String name, default: String?, required: bool) -> String?
+    def symbol: (String name, default: Symbol?, required: bool) -> Symbol?
+  end
+end
