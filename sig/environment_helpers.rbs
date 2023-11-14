@@ -71,12 +71,12 @@ module EnvironmentHelpers
   end
 
   module BooleanHelpers : AccessHelpers
-    TRUTHY_STRINGS: Set[String]
-    FALSEY_STRINGS: Set[String]
     BOOLEAN_VALUES: Set[bool]
     def boolean: (String name, default: bool?, required: bool) -> boolish
     private def truthy_text?: (String?) -> boolish
     private def falsey_text?: (String?) -> boolish
+    private def truthy_strings: () -> Set[String]
+    private def falsey_strings: () -> Set[String]
   end
 
   module EnumerableHelpers : AccessHelpers
