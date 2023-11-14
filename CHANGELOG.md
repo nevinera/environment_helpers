@@ -1,5 +1,15 @@
 # Changelog
 
+## Release 1.5.0
+
+* Add rbs/steep, and enforce types in CI (.rbs file is exported as part
+  of the gem) (#28, resolves #21)
+* Support env-based customization of the truthy/falsey strings used by
+  `ENV.boolean` (#29, resolves #27)
+* Update github workflows to use checkout@v4 (which should have no real
+  impact on us, aside from staying current). (#30)
+* Update README to explain `ENV.array`
+
 ## Release 1.4.0
 
 * Drop support for ruby 2.6
