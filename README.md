@@ -43,6 +43,7 @@ ENV.integer("MAX_THREAD_COUNT", default: 5)
 ENV.file_path("FILE_PATH", default: "/some/path", required: true)
 ENV.date("SCHEDULED_DATE", required: true, format: "%Y-%m-%d")
 ENV.date_time("RUN_AT", required: true, default: DateTime.now)
+ENV.array("QUEUE_NAMES", of: :strings, required: false, default: ["high", "low"])
 ```
 
 Each of the supplied methods takes a positional parameter for the name of the
@@ -83,3 +84,17 @@ The available methods added to `ENV`:
   as a strptime format string (the `:unix` format is equivalent to the format
   string `"%s"`). It handles invalid or unparseable values like `ENV.date` does,
   in that they are treated as if not supplied.
+* `array` - produces an array of strings, symbols, or integers, depending on the
+  value of the `of` parameter. You can specify the delimiter using a `delimiter`
+  parameter (it defaults to a comma).
+
+## Configuration
+
+If you want to specify your own list of truthy/falsey strings, you can do that
+by setting either or both of these environment variables, supplying comma-
+separated (whitespace-free) strings:
+
+* `ENVIRONMENT_HELPERS_TRUTHY_STRINGS` - the default value used is
+  `true,yes,on,enabled,enable,allow,t,y,1,ok,okay`
+* `ENVIRONMENT_HELPERS_FALSEY_STRINGS` - the default value used is
+  `false,no,off,disabled,disable,deny,f,n,0,nope`
