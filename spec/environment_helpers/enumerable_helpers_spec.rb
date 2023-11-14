@@ -7,6 +7,12 @@ RSpec.describe EnvironmentHelpers::EnumerableHelpers do
     subject(:array) { env.array(env_var, **params) }
 
     with_env "FOO" => "a,bc,d"
+    without_env "FOOBAR"
+
+    context "when the value is not present" do
+      let(:env_var) { "FOOBAR" }
+      it { should be_nil }
+    end
 
     describe "parameters" do
       context "when passed an `of' param" do
