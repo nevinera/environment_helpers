@@ -1,7 +1,5 @@
 module EnvironmentHelpers
   module BooleanHelpers
-    TRUTHY_STRINGS = %w[true yes on enabled enable allow t y 1 ok okay].to_set
-    FALSEY_STRINGS = %w[false no off disabled disable deny f n 0 nope].to_set
     BOOLEAN_VALUES = [true, false, nil].to_set
 
     def boolean(name, default: nil, required: false)
@@ -19,12 +17,26 @@ module EnvironmentHelpers
 
     def truthy_text?(text)
       return false if text.nil?
-      TRUTHY_STRINGS.include?(text.strip.downcase)
+      truthy_strings.include?(text.strip.downcase)
     end
 
     def falsey_text?(text)
       return false if text.nil?
-      FALSEY_STRINGS.include?(text.strip.downcase)
+      falsey_strings.include?(text.strip.downcase)
+    end
+
+    def truthy_strings
+      @_truthy_strings ||=
+        ENV.fetch("ENVIRONMENT_HELPERS_TRUTHY_STRINGS", "true,yes,on,enabled,enable,allow,t,y,1,ok,okay")
+          .split(",")
+          .to_set
+    end
+
+    def falsey_strings
+      @_falsey_strings ||=
+        ENV.fetch("ENVIRONMENT_HELPERS_FALSEY_STRINGS", "false,no,off,disabled,disable,deny,f,n,0,nope")
+          .split(",")
+          .to_set
     end
   end
 end
