@@ -13,7 +13,7 @@ jobs:
       NO_STEEP: "Because we need to test on versions that are older than steep supports"
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Set up ruby
         uses: ruby/setup-ruby@v1
