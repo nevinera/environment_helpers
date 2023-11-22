@@ -36,8 +36,7 @@ module EnvironmentHelpers
 
   module AccessHelpers
     # (Actually provided by ENV, which these are all extended onto)
-    def fetch: (String name) -> String?
-             | (String name, String? default) -> String?
+    def fetch: (String name, ?String? default) -> String?
 
     private def fetch_value: (String name, required: bool) -> String?
     private def check_default_type: (String | Symbol context, untyped value, *Class types) -> void
