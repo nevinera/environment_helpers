@@ -11,7 +11,7 @@ RSpec.describe EnvironmentHelpers::RangeHelpers do
 
       context "and the key is supplied" do
         with_env("FOO" => "52-63")
-        it { is_expected.to eq((52..63)) }
+        it { is_expected.to eq(52..63) }
 
         context "but has invalid content" do
           with_env("FOO" => "hello")
@@ -42,7 +42,7 @@ RSpec.describe EnvironmentHelpers::RangeHelpers do
 
       context "when the environment variable is present" do
         with_env("FOO" => "58..61")
-        it { is_expected.to eq((58..61)) }
+        it { is_expected.to eq(58..61) }
       end
 
       context "when the environment variable is not present" do
@@ -78,34 +78,34 @@ RSpec.describe EnvironmentHelpers::RangeHelpers do
 
       context "when the environment variable is present" do
         with_env("FOO" => "58..62")
-        it { is_expected.to eq((58..62)) }
+        it { is_expected.to eq(58..62) }
 
         context "but not actually an integer" do
           with_env("FOO" => "hello")
-          it { is_expected.to eq((91..93)) }
+          it { is_expected.to eq(91..93) }
         end
       end
 
       context "when the environment variable is not present" do
         before { expect(ENV["FOO"]).to be_nil }
-        it { is_expected.to eq((91..93)) }
+        it { is_expected.to eq(91..93) }
       end
     end
 
     context "for various formats" do
       context "with a dash" do
         with_env("FOO" => "3-5")
-        it { is_expected.to eq((3..5)) }
+        it { is_expected.to eq(3..5) }
       end
 
       context "with two dots" do
         with_env("FOO" => "3..5")
-        it { is_expected.to eq((3..5)) }
+        it { is_expected.to eq(3..5) }
       end
 
       context "with three dots" do
         with_env("FOO" => "3...5")
-        it { is_expected.to eq((3...5)) }
+        it { is_expected.to eq(3...5) }
         it { is_expected.not_to be_cover(5) }
       end
 
