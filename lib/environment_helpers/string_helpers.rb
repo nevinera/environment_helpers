@@ -1,6 +1,7 @@
 module EnvironmentHelpers
   module StringHelpers
     def string(name, default: nil, required: false)
+      check_default_type(:string, default, String)
       fetch_value(name, required: required) || default
     end
 
