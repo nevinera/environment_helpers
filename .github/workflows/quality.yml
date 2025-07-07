@@ -6,6 +6,8 @@ permissions: write-all
 jobs:
   check:
     runs-on: ubuntu-latest
+    env:
+      BUNDLE_GEMFILE: Gemfile.ruby3.3
     steps:
       - uses: actions/checkout@v4
         with:
@@ -18,12 +20,8 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3.2
-
-      - name: Install gems
-        run: bundle install --jobs 4 --retry 3
+          ruby-version: 3.3
+          bundler-cache: true
 
       - name: Run QuietQuality
-        run: |
-          gem install quiet_quality standard rubocop
-          qq -C .quiet_quality.ci-cd.yml
+        run: bundle exec qq -C .quiet_quality.ci-cd.yml
