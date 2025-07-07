@@ -1,5 +1,3 @@
 source "https://rubygems.org"
 
 gemspec
-
-gem "steep", "~> 1.6.0"
