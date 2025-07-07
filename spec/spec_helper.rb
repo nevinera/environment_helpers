@@ -1,7 +1,7 @@
 require "rspec"
 require "rspec/cover_it"
 
-if ENV["SIMPLECOV"] || ENV["CI"]
+if ENV["SIMPLECOV"]
   require "simplecov"
   SimpleCov.start do
     enable_coverage :branch
