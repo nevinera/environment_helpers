@@ -15,7 +15,7 @@ module EnvironmentHelpers
 
       # Not a "correct" integer (we accept only limited forms here)
       return nil unless required
-      fail(InvalidIntegerText, "The environment vaiable '${name}' contains text that does not look like an integer")
+      fail(InvalidIntegerText, "The environment variable '#{name}' contains text that does not look like an integer")
     end
   end
 end
