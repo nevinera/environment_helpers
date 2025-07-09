@@ -22,6 +22,7 @@ Gem::Specification.new do |spec|
     `git ls-files -z`
       .split("\x0")
       .reject { |f| f.start_with?("spec") }
+      .reject { |f| f.start_with?("Gemfile") }
   end
 
   spec.bindir = "bin"
