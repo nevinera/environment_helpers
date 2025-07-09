@@ -47,6 +47,14 @@ RSpec.describe EnvironmentHelpers::StringHelpers do
         with_env("FOO" => "bar")
         it { is_expected.to eq("bar") }
       end
+
+      context "of the wrong type" do
+        subject(:string) { ENV.string(name, default: :foo) }
+
+        it "raises a BadDefault error" do
+          expect { string }.to raise_error(EnvironmentHelpers::BadDefault, /inappropriate default/i)
+        end
+      end
     end
   end
 
