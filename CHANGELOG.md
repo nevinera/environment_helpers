@@ -1,5 +1,13 @@
 # Changelog
 
+## Release 1.6.0
+
+* Remove steep and the rbs types (#41)
+* Check the default's type in StringHelpers, preventing
+  `ENV.string("FOO", default: 5)` (#38 fixes #33)
+* Handle non-numeric values in `ENV.integer` in a more sensible way (#39 fixes #34)
+* Split Gemfile out per supported ruby, and commit all of the resulting lockfiles.
+
 ## Release 1.5.0
 
 * Add rbs/steep, and enforce types in CI (.rbs file is exported as part
