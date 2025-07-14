@@ -1,5 +1,11 @@
 # Changelog
 
+## Relase 1.6.1
+
+* Update all of the Gemfile(.lock) symlinks to actual file copies, for platform
+  compatibility
+* Stop including Gemfiles and lockfiles in the built gem.
+
 ## Release 1.6.0
 
 * Remove steep and the rbs types (#41)
