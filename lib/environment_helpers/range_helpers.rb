@@ -19,24 +19,16 @@ module EnvironmentHelpers
       fail(BadDefault, "Invalid endpoint for default range of #{context} - must be Integer")
     end
 
-    def parse_range_bound_from(text)
-      return nil if text.nil?
-      return nil if text.empty?
-      text.to_i
-    end
-
     def parse_range_from(text)
-      text =~ /\A(\d*)(-|\.\.|\.\.\.)(\d*)\z/
-      lower_bound = parse_range_bound_from($1)
-      separator = $2
-      upper_bound = parse_range_bound_from($3)
-
-      return nil if lower_bound.nil? || upper_bound.nil?
-      if separator == "..."
-        (lower_bound...upper_bound)
+      if text =~ /\A(-?\d+)(\.\.\.?)(-?\d+)\z/
+        lower_bound, separator, upper_bound = $1.to_i, $2, $3.to_i
+      elsif text =~ /\A(\d+)-(\d+)\z/
+        lower_bound, separator, upper_bound = $1.to_i, "..", $2.to_i
       else
-        (lower_bound..upper_bound)
+        return nil
       end
+
+      (separator == "...") ? (lower_bound...upper_bound) : (lower_bound..upper_bound)
     end
   end
 end
