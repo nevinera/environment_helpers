@@ -26,7 +26,7 @@ quickly.
 ## Installation
 
 ```ruby
-gem "environment_helper"
+gem "environment_helpers"
 ```
 
 There's not much to it - add the gem to your gemfile and when it's loaded it'll
