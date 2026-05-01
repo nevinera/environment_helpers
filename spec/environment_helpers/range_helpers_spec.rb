@@ -113,6 +113,38 @@ RSpec.describe EnvironmentHelpers::RangeHelpers do
         with_env("FOO" => "3..")
         it { is_expected.to be_nil }
       end
+
+      context "with negative bounds" do
+        context "negative lower with two dots" do
+          with_env("FOO" => "-5..10")
+          it { is_expected.to eq((-5..10)) }
+        end
+
+        context "both negative with two dots" do
+          with_env("FOO" => "-10..-3")
+          it { is_expected.to eq((-10..-3)) }
+        end
+
+        context "negative upper with two dots" do
+          with_env("FOO" => "5..-3")
+          it { is_expected.to eq((5..-3)) }
+        end
+
+        context "negative lower with three dots" do
+          with_env("FOO" => "-5...0")
+          it { is_expected.to eq((-5...0)) }
+        end
+
+        context "negative lower with dash separator" do
+          with_env("FOO" => "-5-10")
+          it { is_expected.to be_nil }
+        end
+
+        context "negative upper with dash separator" do
+          with_env("FOO" => "5--3")
+          it { is_expected.to be_nil }
+        end
+      end
     end
   end
 end
