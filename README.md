@@ -26,7 +26,7 @@ quickly.
 ## Installation
 
 ```ruby
-gem "environment_helper"
+gem "environment_helpers"
 ```
 
 There's not much to it - add the gem to your gemfile and when it's loaded it'll
@@ -69,10 +69,10 @@ The available methods added to `ENV`:
   `N...N` (the latter excludes the upper bound, as in Ruby), and both formats
   support negative endpoints (e.g. `-5..10`, `-10..-3`). A dash-separated
   format `N-N` is also accepted, but only supports non-negative endpoints.
-* `integer` - produces an integer from the environment variable, by calling
-  `to_i` on it (if it's present). Note that this means that providing a value
-  like "hello" means you'll get `0`, since that's what ruby does when you call
-  `"hello".to_i`.
+* `integer` - produces an integer from the environment variable. Only values
+  matching `/\A-?\d+\z/` are accepted; anything else is treated as if the
+  variable were absent (returning `nil` or the default, or raising
+  `InvalidIntegerText` if `required: true`).
 * `file_path` - produces a `Pathname` initialized with the path specified by the
   environment variable.
 * `date` - produces a `Date` object, using `Date.strptime`. The default format
@@ -85,7 +85,9 @@ The available methods added to `ENV`:
   an allowed 'format'. But if it is supplied as a _string_, it will be handled
   as a strptime format string (the `:unix` format is equivalent to the format
   string `"%s"`). It handles invalid or unparseable values like `ENV.date` does,
-  in that they are treated as if not supplied.
+  in that they are treated as if not supplied. Note that an invalid format string
+  (e.g. one containing an unknown directive) is indistinguishable from a
+  non-matching value and will be silently treated the same way.
 * `array` - produces an array of strings, symbols, or integers, depending on the
   value of the `of` parameter. You can specify the delimiter using a `delimiter`
   parameter (it defaults to a comma).
