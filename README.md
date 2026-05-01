@@ -65,8 +65,10 @@ The available methods added to `ENV`:
   value, though you should probably just use "true" and "false" really. If you
   specify `required: true` and get a value like "maybe?", it'll raise an
   `EnvironmentHelpers::InvalidBooleanText` exception.
-* `integer_range` - produces an integer Range object. It accepts `N-N`, `N..N`,
-  or `N...N`, (the latter means 'excluding the upper bound, as in ruby).
+* `integer_range` - produces an integer Range object. It accepts `N..N` or
+  `N...N` (the latter excludes the upper bound, as in Ruby), and both formats
+  support negative endpoints (e.g. `-5..10`, `-10..-3`). A dash-separated
+  format `N-N` is also accepted, but only supports non-negative endpoints.
 * `integer` - produces an integer from the environment variable, by calling
   `to_i` on it (if it's present). Note that this means that providing a value
   like "hello" means you'll get `0`, since that's what ruby does when you call
