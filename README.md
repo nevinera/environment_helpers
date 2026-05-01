@@ -85,7 +85,9 @@ The available methods added to `ENV`:
   an allowed 'format'. But if it is supplied as a _string_, it will be handled
   as a strptime format string (the `:unix` format is equivalent to the format
   string `"%s"`). It handles invalid or unparseable values like `ENV.date` does,
-  in that they are treated as if not supplied.
+  in that they are treated as if not supplied. Note that an invalid format string
+  (e.g. one containing an unknown directive) is indistinguishable from a
+  non-matching value and will be silently treated the same way.
 * `array` - produces an array of strings, symbols, or integers, depending on the
   value of the `of` parameter. You can specify the delimiter using a `delimiter`
   parameter (it defaults to a comma).
