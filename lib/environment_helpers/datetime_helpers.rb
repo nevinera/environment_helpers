@@ -19,7 +19,7 @@ module EnvironmentHelpers
 
       return dt if dt
       return default unless required
-      fail(InvalidDateTimeText, "Require date_time environment variable #{name} had inappropriate content '#{text}'")
+      fail(InvalidDateTimeText, "Required date_time environment variable #{name} had inappropriate content '#{text}'")
     end
 
     private
