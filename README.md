@@ -69,10 +69,10 @@ The available methods added to `ENV`:
   `N...N` (the latter excludes the upper bound, as in Ruby), and both formats
   support negative endpoints (e.g. `-5..10`, `-10..-3`). A dash-separated
   format `N-N` is also accepted, but only supports non-negative endpoints.
-* `integer` - produces an integer from the environment variable, by calling
-  `to_i` on it (if it's present). Note that this means that providing a value
-  like "hello" means you'll get `0`, since that's what ruby does when you call
-  `"hello".to_i`.
+* `integer` - produces an integer from the environment variable. Only values
+  matching `/\A-?\d+\z/` are accepted; anything else is treated as if the
+  variable were absent (returning `nil` or the default, or raising
+  `InvalidIntegerText` if `required: true`).
 * `file_path` - produces a `Pathname` initialized with the path specified by the
   environment variable.
 * `date` - produces a `Date` object, using `Date.strptime`. The default format
