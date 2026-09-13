@@ -1,6 +1,24 @@
 RSpec.describe EnvironmentHelpers::BooleanHelpers do
   subject(:env) { ENV }
 
+  describe ".truthy_strings" do
+    without_env "ENVIRONMENT_HELPERS_TRUTHY_STRINGS"
+
+    it "returns the configured truthy strings as a set" do
+      expect(described_class.truthy_strings).to be_a(Set)
+      expect(described_class.truthy_strings).to include("true", "yes", "1")
+    end
+  end
+
+  describe ".falsey_strings" do
+    without_env "ENVIRONMENT_HELPERS_FALSEY_STRINGS"
+
+    it "returns the configured falsey strings as a set" do
+      expect(described_class.falsey_strings).to be_a(Set)
+      expect(described_class.falsey_strings).to include("false", "no", "0")
+    end
+  end
+
   describe "#boolean" do
     let(:name) { "FOO" }
     let(:options) { {} }
