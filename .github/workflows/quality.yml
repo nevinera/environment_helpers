@@ -1,6 +1,6 @@
 name: Quiet Quality
 
-on: push
+on: [push, pull_request]
 permissions: write-all
 
 jobs:
