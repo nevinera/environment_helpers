@@ -1,6 +1,24 @@
 RSpec.describe EnvironmentHelpers::BooleanHelpers do
   subject(:env) { ENV }
 
+  describe ".truthy_strings" do
+    without_env "ENVIRONMENT_HELPERS_TRUTHY_STRINGS"
+
+    it "returns the configured truthy strings as a set" do
+      expect(described_class.truthy_strings).to be_a(Set)
+      expect(described_class.truthy_strings).to include("true", "yes", "1")
+    end
+  end
+
+  describe ".falsey_strings" do
+    without_env "ENVIRONMENT_HELPERS_FALSEY_STRINGS"
+
+    it "returns the configured falsey strings as a set" do
+      expect(described_class.falsey_strings).to be_a(Set)
+      expect(described_class.falsey_strings).to include("false", "no", "0")
+    end
+  end
+
   describe "#boolean" do
     let(:name) { "FOO" }
     let(:options) { {} }
@@ -40,8 +58,8 @@ RSpec.describe EnvironmentHelpers::BooleanHelpers do
     end
 
     context "with ENVIRONMENT_HELPERS_TRUTHY_STRINGS supplied" do
-      before { ENV.instance_variable_set(:@_truthy_strings, nil) }
-      after { ENV.instance_variable_set(:@_truthy_strings, nil) }
+      before { EnvironmentHelpers::BooleanHelpers.instance_variable_set(:@_truthy_strings, nil) }
+      after { EnvironmentHelpers::BooleanHelpers.instance_variable_set(:@_truthy_strings, nil) }
       let(:options) { {default: false} }
       with_env "ENVIRONMENT_HELPERS_TRUTHY_STRINGS" => "foo,bar,baz"
       %w[foo bar baz].each { |text| it_handles(text, as: true) }
@@ -49,8 +67,8 @@ RSpec.describe EnvironmentHelpers::BooleanHelpers do
     end
 
     context "with ENVIRONMENT_HELPERS_FALSEY_STRINGS supplied" do
-      before { ENV.instance_variable_set(:@_falsey_strings, nil) }
-      after { ENV.instance_variable_set(:@_falsey_strings, nil) }
+      before { EnvironmentHelpers::BooleanHelpers.instance_variable_set(:@_falsey_strings, nil) }
+      after { EnvironmentHelpers::BooleanHelpers.instance_variable_set(:@_falsey_strings, nil) }
       let(:options) { {default: true} }
       with_env "ENVIRONMENT_HELPERS_FALSEY_STRINGS" => "foo,bar,baz"
       %w[foo bar baz].each { |text| it_handles(text, as: false) }
@@ -62,8 +80,8 @@ RSpec.describe EnvironmentHelpers::BooleanHelpers do
 
       it "caches the values of truthy_strings and falsey_strings across ENV.boolean calls" do
         allow(ENV).to receive(:fetch).and_call_original
-        ENV.instance_variable_set(:@_falsey_strings, nil)
-        ENV.instance_variable_set(:@_truthy_strings, nil)
+        EnvironmentHelpers::BooleanHelpers.instance_variable_set(:@_falsey_strings, nil)
+        EnvironmentHelpers::BooleanHelpers.instance_variable_set(:@_truthy_strings, nil)
 
         ENV.boolean("BAR", required: false)
         expect(ENV).to have_received(:fetch).with("ENVIRONMENT_HELPERS_TRUTHY_STRINGS", anything).once
