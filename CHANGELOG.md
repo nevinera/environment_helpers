@@ -1,8 +1,13 @@
 # Changelog
 
+## Release 1.6.3
+
+* Support for (future) ruby 4.1, which blocks ivars on ENV (#50)
+
 ## Release 1.6.2
 
-* Support negative endpoints in `ENV.integer_range` for `..` and `...` formats (#46, #48)
+* Support negative endpoints in `ENV.integer_range` for `..` and `...` formats
+  (#46, #48)
 * Fix typo in `InvalidDateTimeText` error message (#45, #47)
 * Fix README: correct gem name in installation snippet, `integer` behavior
   description, and document `date_time` format-string limitation (#44, #49)

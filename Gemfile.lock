@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    environment_helpers (1.6.2)
+    environment_helpers (1.6.3)
 
 GEM
   remote: https://rubygems.org/
